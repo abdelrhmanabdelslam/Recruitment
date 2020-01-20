@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Recruithment.BusinessMapping\Recruitment..BusinessMapping.csproj" />
+    <ProjectReference Include="..\Recruitment.Common\Recruitment.Common.csproj" />
+    <ProjectReference Include="..\Recruitment.DTOS\Recruitment.DTOS.csproj" />
+  </ItemGroup>
+
+</Project>

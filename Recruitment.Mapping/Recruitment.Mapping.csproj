@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Recruitment.Common\Recruitment.Common.csproj" />
+    <ProjectReference Include="..\Recruitment.DTOS\Recruitment.DTOS.csproj" />
+    <ProjectReference Include="..\Recruitment.Entity\Recruitment.Entity.csproj" />
+  </ItemGroup>
+
+</Project>
