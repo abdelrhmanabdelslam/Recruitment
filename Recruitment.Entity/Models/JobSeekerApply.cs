@@ -11,7 +11,7 @@ namespace Recruitment.Entity.Models
         public DateTime ApplyDate { get; set; }
         public byte JobSeekerApplyStatusId { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual JobSeeker JobSeeker { get; set; }
         public virtual JobSeekerApplyStatus JobSeekerApplyStatus { get; set; }

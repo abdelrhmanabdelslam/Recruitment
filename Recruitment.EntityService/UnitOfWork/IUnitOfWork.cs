@@ -25,6 +25,16 @@ namespace Recruitment.EntitiesService.UnitOfWork
         ICompanyTypeRepository CompanyTypeRepository { get; }
         ICompanyUserRepository CompanyUserRepository { get; }
         ICompanyUserTypeRepository CompanyUserTypeRepository { get; }
+        IEmployerJobRoleRepository EmployerJobRoleRepository { get; }
+        IJobSeekerRepository JobSeekerRepository { get; }
+        IJobSeekerApplyRepository JobSeekerApplyRepository { get; }
+        IJobSeekerApplyStatusRepository JobSeekerApplyStatusRepository { get; }
+        IJobSeekerExperienceRepository JobSeekerExperienceRepository { get; }
+        IJobSeekerFieldOfStudyRepository JobSeekerFieldOfStudyRepository { get; }
+        IJobSeekerGradeRepository JobSeekerGradeRepository { get; }
+        IJobSeekerProfessionalInformationRepository JobSeekerProfessionalInformationRepository { get; }
+        IJobSeekerRoleRepository JobSeekerRoleRepository { get; }
+        IJobSeekerSkillsRepository JobSeekerSkillsRepository { get; }
      
         Task<int> Commit();
     }

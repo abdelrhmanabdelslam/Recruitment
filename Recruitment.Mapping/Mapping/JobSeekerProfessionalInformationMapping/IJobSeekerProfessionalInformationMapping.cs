@@ -1,0 +1,19 @@
+using Recruitment.DTOS.JobSeekerProfessionalInformationDTOS;
+using Recruitment.Entity.Models;
+using System.Collections.Generic;
+
+namespace Recruitment.Mapping.Mapping
+{
+    public interface IJobSeekerProfessionalInformationMapping
+    {
+        List<JobSeekerProfessionalInformationReturnDTO> MappingJobSeekerProfessionalInformationToJobSeekerProfessionalInformationReturnDTO(List<JobSeekerProfessionalInformation> JobSeekerProfessionalInformationList);
+        JobSeekerProfessionalInformation MappingJobSeekerProfessionalInformationAddDTOToJobSeekerProfessionalInformation(JobSeekerProfessionalInformationAddDTO JobSeekerProfessionalInformationAddDTO);
+        JobSeekerProfessionalInformation MappingJobSeekerProfessionalInformationupdateDTOToJobSeekerProfessionalInformation(JobSeekerProfessionalInformation JobSeekerProfessionalInformation,JobSeekerProfessionalInformationUpdateDTO JobSeekerProfessionalInformationUpdateDTO);
+        JobSeekerProfessionalInformationReturnDTO MappingJobSeekerProfessionalInformationToJobSeekerProfessionalInformationReturnDTO(JobSeekerProfessionalInformation JobSeekerProfessionalInformation);
+
+    }
+}
+
+
+
+

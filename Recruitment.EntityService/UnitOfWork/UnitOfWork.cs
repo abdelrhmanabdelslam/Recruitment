@@ -32,6 +32,16 @@ namespace Recruitment.EntitiesService.UnitOfWork
         public ICompanyTypeRepository CompanyTypeRepository { get => new CompanyTypeRepository(RecruitmentDbContext); }
         public ICompanyUserRepository CompanyUserRepository { get => new CompanyUserRepository(RecruitmentDbContext); }
         public ICompanyUserTypeRepository CompanyUserTypeRepository { get => new CompanyUserTypeRepository(RecruitmentDbContext); }
+        public IEmployerJobRoleRepository EmployerJobRoleRepository { get => new EmployerJobRoleRepository(RecruitmentDbContext); }
+        public IJobSeekerRepository JobSeekerRepository { get => new JobSeekerRepository(RecruitmentDbContext); }
+        public IJobSeekerApplyRepository JobSeekerApplyRepository { get => new JobSeekerApplyRepository(RecruitmentDbContext); }
+        public IJobSeekerApplyStatusRepository JobSeekerApplyStatusRepository { get => new JobSeekerApplyStatusRepository(RecruitmentDbContext); }
+        public IJobSeekerExperienceRepository JobSeekerExperienceRepository { get => new JobSeekerExperienceRepository(RecruitmentDbContext); }
+        public IJobSeekerFieldOfStudyRepository JobSeekerFieldOfStudyRepository { get => new JobSeekerFieldOfStudyRepository(RecruitmentDbContext); }
+        public IJobSeekerGradeRepository JobSeekerGradeRepository { get => new JobSeekerGradeRepository(RecruitmentDbContext); }
+        public IJobSeekerProfessionalInformationRepository JobSeekerProfessionalInformationRepository { get => new JobSeekerProfessionalInformationRepository(RecruitmentDbContext); }
+        public IJobSeekerRoleRepository JobSeekerRoleRepository { get => new JobSeekerRoleRepository(RecruitmentDbContext); }
+        public IJobSeekerSkillsRepository JobSeekerSkillsRepository { get => new JobSeekerSkillsRepository(RecruitmentDbContext); }
         #endregion
         #region Constractor
         public UnitOfWork()

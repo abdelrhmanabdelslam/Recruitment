@@ -12,6 +12,8 @@ namespace Recruitment.Entity.Models
         public string UniversityOrIstitution { get; set; }
         public int? GraduationYear { get; set; }
         public byte? GradeId { get; set; }
+        public DateTime CreationDate { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual CurrentEducationalLevel CurrentEducationalLevel { get; set; }
         public virtual JobSeekerGrade Grade { get; set; }

@@ -22,7 +22,7 @@ namespace Recruitment.Entity.Models
         public string PasswordHash { get; set; }
         public string PasswordSalt { get; set; }
         public byte? ReferralId { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime  CreationDate { get; set; }
         public byte IsDeleted { get; set; }
         public virtual City City { get; set; }
         public virtual Referral Referral { get; set; }

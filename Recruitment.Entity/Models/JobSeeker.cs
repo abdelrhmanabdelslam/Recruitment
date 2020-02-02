@@ -35,7 +35,7 @@ namespace Recruitment.Entity.Models
         public string PhoneNumber2 { get; set; }
         public byte? CurrentEducationalLevelId { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
         public string University { get; set; }
         public int? GraduationYear { get; set; }
         public byte? GradeId { get; set; }

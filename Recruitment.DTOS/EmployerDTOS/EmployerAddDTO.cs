@@ -14,8 +14,7 @@ namespace Recruitment.DTOS.EmployerDTOS
         public string MobileNumber { get; set; }
         public string MobileNumber1 { get; set; }
         public string BusinessEmail { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public string Password { get; set; }
         public byte? ReferralId { get; set; }
     }
 }

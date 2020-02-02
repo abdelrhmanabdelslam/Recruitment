@@ -13,7 +13,7 @@ namespace Recruitment.Entity.Models
         public byte JobSeekerGradeId { get; set; }
         public string JobSeekerGradeName { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual ICollection<JobSeekerProfessionalInformation> JobSeekerProfessionalInformation { get; set; }
     }

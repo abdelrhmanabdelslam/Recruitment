@@ -13,7 +13,7 @@ namespace Recruitment.Entity.Models
         public byte JobSeekerApplyStatusId { get; set; }
         public string JobSeekerApplyStatusName { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual ICollection<JobSeekerApply> JobSeekerApply { get; set; }
     }

@@ -118,6 +118,49 @@ namespace Recruitment.ConfigureServicesContainer.AdminConfigureServices
             services.AddSingleton<ICompanyUserTypeBusinessMapping, CompanyUserTypeBusinessMapping>();
             services.AddSingleton<ICompanyUserTypeMapping, CompanyUserTypeMapping>();
             services.AddSingleton<ICompanyUserTypeAppService, CompanyUserTypeAppService>();
+
+            services.AddSingleton<IEmployerJobRoleBusinessMapping, EmployerJobRoleBusinessMapping>();
+            services.AddSingleton<IEmployerJobRoleMapping, EmployerJobRoleMapping>();
+            services.AddSingleton<IEmployerJobRoleAppService, EmployerJobRoleAppService>();
+
+            services.AddSingleton<IJobSeekerBusinessMapping, JobSeekerBusinessMapping>();
+            services.AddSingleton<IJobSeekerMapping, JobSeekerMapping>();
+            services.AddSingleton<IJobSeekerAppService, JobSeekerAppService>();
+
+            services.AddSingleton<IJobSeekerApplyStatusBusinessMapping, JobSeekerApplyStatusBusinessMapping>();
+            services.AddSingleton<IJobSeekerApplyStatusMapping, JobSeekerApplyStatusMapping>();
+            services.AddSingleton<IJobSeekerApplyStatusAppService, JobSeekerApplyStatusAppService>();
+
+
+            services.AddSingleton<IJobSeekerApplyBusinessMapping, JobSeekerApplyBusinessMapping>();
+            services.AddSingleton<IJobSeekerApplyMapping, JobSeekerApplyMapping>();
+            services.AddSingleton<IJobSeekerApplyAppService, JobSeekerApplyAppService>();
+
+            services.AddSingleton<IJobSeekerExperienceBusinessMapping, JobSeekerExperienceBusinessMapping>();
+            services.AddSingleton<IJobSeekerExperienceMapping, JobSeekerExperienceMapping>();
+            services.AddSingleton<IJobSeekerExperienceAppService, JobSeekerExperienceAppService>();
+
+            services.AddSingleton<IJobSeekerFieldOfStudyBusinessMapping, JobSeekerFieldOfStudyBusinessMapping>();
+            services.AddSingleton<IJobSeekerFieldOfStudyMapping, JobSeekerFieldOfStudyMapping>();
+            services.AddSingleton<IJobSeekerFieldOfStudyAppService, JobSeekerFieldOfStudyAppService>();
+
+            services.AddSingleton<IJobSeekerGradeBusinessMapping, JobSeekerGradeBusinessMapping>();
+            services.AddSingleton<IJobSeekerGradeMapping, JobSeekerGradeMapping>();
+            services.AddSingleton<IJobSeekerGradeAppService, JobSeekerGradeAppService>();
+
+            services.AddSingleton<IJobSeekerProfessionalInformationBusinessMapping, JobSeekerProfessionalInformationBusinessMapping>();
+            services.AddSingleton<IJobSeekerProfessionalInformationMapping, JobSeekerProfessionalInformationMapping>();
+            services.AddSingleton<IJobSeekerProfessionalInformationAppService, JobSeekerProfessionalInformationAppService>();
+
+
+            services.AddSingleton<IJobSeekerRoleBusinessMapping, JobSeekerRoleBusinessMapping>();
+            services.AddSingleton<IJobSeekerRoleMapping, JobSeekerRoleMapping>();
+            services.AddSingleton<IJobSeekerRoleAppService, JobSeekerRoleAppService>();
+
+
+            services.AddSingleton<IJobSeekerSkillsBusinessMapping, JobSeekerSkillsBusinessMapping>();
+            services.AddSingleton<IJobSeekerSkillsMapping, JobSeekerSkillsMapping>();
+            services.AddSingleton<IJobSeekerSkillsAppService, JobSeekerSkillsAppService>();
         }
     }
 }

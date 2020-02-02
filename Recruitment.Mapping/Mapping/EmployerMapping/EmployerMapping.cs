@@ -21,8 +21,16 @@ namespace Recruitment.Mapping.Mapping
                 {
                     EmployerReturnDTOList = EmployerList.Select(u => new EmployerReturnDTO
                     {
-                        EmployerId = u.EmployerId,
-                        EmployerName  = u.EmployerName 
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        EmployerId = u.EmployerId ,
+                        BusinessEmail = u.BusinessEmail,
+                        MobileNumber = u.MobileNumber,
+                        MobileNumber1 = u.MobileNumber1,
+                        Password = u.PasswordHash,
+                        ReferralId = u.ReferralId,
+                        Title = u.Title
+                       
                     }).ToList();
                 }
             }
@@ -46,7 +54,14 @@ namespace Recruitment.Mapping.Mapping
                 {
                     Employer = new Employer
                     {
-                        EmployerName = EmployerAddDTO.EmployerName,
+                        FirstName = EmployerAddDTO.FirstName,
+                        LastName = EmployerAddDTO.LastName,
+                        BusinessEmail = EmployerAddDTO.BusinessEmail,
+                        MobileNumber = EmployerAddDTO.MobileNumber,
+                        MobileNumber1 = EmployerAddDTO.MobileNumber1,
+                        PasswordHash = EmployerAddDTO.Password,
+                        ReferralId = EmployerAddDTO.ReferralId,
+                        Title = EmployerAddDTO.Title,
                         CreationDate = DateTime.Now,
                         IsDeleted = (byte)DeleteStatusEnum.NotDeleted
                     };
@@ -69,8 +84,16 @@ namespace Recruitment.Mapping.Mapping
                 {
                     if (EmployerUpdateDTO.EmployerId > default(int))
                     {
+                        Employer.FirstName = EmployerUpdateDTO.FirstName;
+                        Employer.LastName = EmployerUpdateDTO.LastName;
                         Employer.EmployerId = EmployerUpdateDTO.EmployerId;
-                        Employer.EmployerName = EmployerUpdateDTO.EmployerName;
+                        Employer.BusinessEmail = EmployerUpdateDTO.BusinessEmail;
+                        Employer.MobileNumber = EmployerUpdateDTO.MobileNumber;
+                        Employer.MobileNumber1 = EmployerUpdateDTO.MobileNumber1;
+                        Employer.PasswordHash = EmployerUpdateDTO.Password;
+                        Employer.ReferralId = EmployerUpdateDTO.ReferralId;
+                        Employer.Title = EmployerUpdateDTO.Title;
+                    
                     }
                 }
                 catch (Exception exception) { }
@@ -88,7 +111,14 @@ namespace Recruitment.Mapping.Mapping
                         EmployerReturnDTO = new EmployerReturnDTO
                         {
                             EmployerId = Employer.EmployerId,
-                            EmployerName = Employer.EmployerName
+                            FirstName = Employer.FirstName,
+                            LastName = Employer.LastName,
+                            BusinessEmail = Employer.BusinessEmail,
+                            MobileNumber = Employer.MobileNumber,
+                            MobileNumber1 = Employer.MobileNumber1,
+                            Password = Employer.PasswordHash,
+                            ReferralId = Employer.ReferralId,
+                            Title = Employer.Title,
                         };
                     }
                 }
