@@ -12,9 +12,9 @@ namespace Recruitment.Entity.Models
         }
 
         public byte TypeOfJobId { get; set; }
-        public string TypeOfJobname { get; set; }
+        public string TypeOfJobName { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual ICollection<JobSeekerExperience> JobSeekerExperience { get; set; }
         public virtual ICollection<JobSeekerTypeOfJob> JobSeekerTypeOfJob { get; set; }

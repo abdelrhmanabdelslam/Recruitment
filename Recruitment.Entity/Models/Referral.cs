@@ -12,7 +12,7 @@ namespace Recruitment.Entity.Models
 
         public byte ReferralId { get; set; }
         public string ReferralName { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
         public DateTime CreationDate { get; set; }
 
         public virtual ICollection<Employer> Employer { get; set; }

@@ -12,7 +12,7 @@ namespace Recruitment.Entity.Models
 
         public byte PostTypeId { get; set; }
         public string PostTypeName { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
         public DateTime CreationDate { get; set; }
 
         public virtual ICollection<Post> Post { get; set; }

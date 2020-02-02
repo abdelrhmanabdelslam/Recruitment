@@ -42,6 +42,17 @@ namespace Recruitment.EntitiesService.UnitOfWork
         public IJobSeekerProfessionalInformationRepository JobSeekerProfessionalInformationRepository { get => new JobSeekerProfessionalInformationRepository(RecruitmentDbContext); }
         public IJobSeekerRoleRepository JobSeekerRoleRepository { get => new JobSeekerRoleRepository(RecruitmentDbContext); }
         public IJobSeekerSkillsRepository JobSeekerSkillsRepository { get => new JobSeekerSkillsRepository(RecruitmentDbContext); }
+        public IJobSeekerTypeOfJobRepository JobSeekerTypeOfJobRepository { get => new JobSeekerTypeOfJobRepository(RecruitmentDbContext); }
+        public IJobSekeerLanguagesRepository JobSekeerLanguagesRepository { get => new JobSekeerLanguagesRepository(RecruitmentDbContext); }
+        public ILanguageRepository LanguageRepository { get => new LanguageRepository(RecruitmentDbContext); }
+        public ILanguageLevelRepository LanguageLevelRepository { get => new LanguageLevelRepository(RecruitmentDbContext); }
+        public IPostRepository PostRepository { get => new PostRepository(RecruitmentDbContext); }
+        public IPostIndustryRepository PostIndustryRepository { get => new PostIndustryRepository(RecruitmentDbContext); }
+        public IPostJobRoleRepository PostJobRoleRepository { get => new PostJobRoleRepository(RecruitmentDbContext); }
+        public IPostRelatedIndustryRepository PostRelatedIndustryRepository { get => new PostRelatedIndustryRepository(RecruitmentDbContext); }
+        public IPostTypeRepository PostTypeRepository { get => new PostTypeRepository(RecruitmentDbContext); }
+        public IReferralRepository ReferralRepository { get => new ReferralRepository(RecruitmentDbContext); }
+        public ITypeOfJobRepository TypeOfJobRepository { get => new TypeOfJobRepository(RecruitmentDbContext); }
         #endregion
         #region Constractor
         public UnitOfWork()

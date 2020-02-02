@@ -161,6 +161,51 @@ namespace Recruitment.ConfigureServicesContainer.AdminConfigureServices
             services.AddSingleton<IJobSeekerSkillsBusinessMapping, JobSeekerSkillsBusinessMapping>();
             services.AddSingleton<IJobSeekerSkillsMapping, JobSeekerSkillsMapping>();
             services.AddSingleton<IJobSeekerSkillsAppService, JobSeekerSkillsAppService>();
+
+            services.AddSingleton<IJobSeekerTypeOfJobBusinessMapping, JobSeekerTypeOfJobBusinessMapping>();
+            services.AddSingleton<IJobSeekerTypeOfJobMapping, JobSeekerTypeOfJobMapping>();
+            services.AddSingleton<IJobSeekerTypeOfJobAppService, JobSeekerTypeOfJobAppService>();
+
+            services.AddSingleton<IJobSekeerLanguagesBusinessMapping, JobSekeerLanguagesBusinessMapping>();
+            services.AddSingleton<IJobSekeerLanguagesMapping, JobSekeerLanguagesMapping>();
+            services.AddSingleton<IJobSekeerLanguagesAppService, JobSekeerLanguagesAppService>();
+
+            services.AddSingleton<ILanguageBusinessMapping, LanguageBusinessMapping>();
+            services.AddSingleton<ILanguageMapping, LanguageMapping>();
+            services.AddSingleton<ILanguageAppService, LanguageAppService>();
+
+            services.AddSingleton<ILanguageLevelBusinessMapping, LanguageLevelBusinessMapping>();
+            services.AddSingleton<ILanguageLevelMapping, LanguageLevelMapping>();
+            services.AddSingleton<ILanguageLevelAppService, LanguageLevelAppService>();
+
+            services.AddSingleton<IPostBusinessMapping, PostBusinessMapping>();
+            services.AddSingleton<IPostMapping, PostMapping>();
+            services.AddSingleton<IPostAppService, PostAppService>();
+
+            services.AddSingleton<IPostIndustryBusinessMapping, PostIndustryBusinessMapping>();
+            services.AddSingleton<IPostIndustryMapping, PostIndustryMapping>();
+            services.AddSingleton<IPostIndustryAppService, PostIndustryAppService>();
+
+            services.AddSingleton<IPostJobRoleBusinessMapping, PostJobRoleBusinessMapping>();
+            services.AddSingleton<IPostJobRoleMapping, PostJobRoleMapping>();
+            services.AddSingleton<IPostJobRoleAppService, PostJobRoleAppService>();
+
+            services.AddSingleton<IPostRelatedIndustryBusinessMapping, PostRelatedIndustryBusinessMapping>();
+            services.AddSingleton<IPostRelatedIndustryMapping, PostRelatedIndustryMapping>();
+            services.AddSingleton<IPostRelatedIndustryAppService, PostRelatedIndustryAppService>();
+
+            services.AddSingleton<IPostTypeBusinessMapping, PostTypeBusinessMapping>();
+            services.AddSingleton<IPostTypeMapping, PostTypeMapping>();
+            services.AddSingleton<IPostTypeAppService, PostTypeAppService>();
+
+            services.AddSingleton<IReferralBusinessMapping, ReferralBusinessMapping>();
+            services.AddSingleton<IReferralMapping, ReferralMapping>();
+            services.AddSingleton<IReferralAppService, ReferralAppService>();
+
+
+            services.AddSingleton<ITypeOfJobBusinessMapping, TypeOfJobBusinessMapping>();
+            services.AddSingleton<ITypeOfJobMapping, TypeOfJobMapping>();
+            services.AddSingleton<ITypeOfJobAppService, TypeOfJobAppService>();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Recruitment.Entity.Models
         public int PostJobRoleId { get; set; }
         public int JobRoleId { get; set; }
         public long PostId { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
         public DateTime CreationDate { get; set; }
 
         public virtual JobRole JobRole { get; set; }

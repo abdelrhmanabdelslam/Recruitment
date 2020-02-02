@@ -26,7 +26,7 @@ namespace Recruitment.Entity.Models
         public string PostDescription { get; set; }
         public bool? IsClosed { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual CareerLevel CareerLevel { get; set; }
         public virtual PostType PostType { get; set; }

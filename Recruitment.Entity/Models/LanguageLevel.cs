@@ -13,7 +13,7 @@ namespace Recruitment.Entity.Models
         public byte LanguageLevelId { get; set; }
         public string LanguageLevelName { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual ICollection<JobSekeerLanguages> JobSekeerLanguages { get; set; }
     }

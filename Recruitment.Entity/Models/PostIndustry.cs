@@ -9,7 +9,7 @@ namespace Recruitment.Entity.Models
         public int IndustryId { get; set; }
         public long? PostId { get; set; }
         public DateTime CreationDate { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
 
         public virtual Post Post { get; set; }
     }

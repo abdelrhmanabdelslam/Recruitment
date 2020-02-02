@@ -735,7 +735,7 @@ namespace Recruitment.Entity.Models
 
                 entity.Property(e => e.CreationDate).HasColumnType("datetime");
 
-                entity.Property(e => e.TypeOfJobname)
+                entity.Property(e => e.TypeOfJobName)
                     .IsRequired()
                     .HasMaxLength(50);
             });

@@ -9,7 +9,7 @@ namespace Recruitment.Entity.Models
         public long? JobSeekerId { get; set; }
         public byte LanguageId { get; set; }
         public byte LanguageLevelId { get; set; }
-        public TimeSpan IsDeleted { get; set; }
+        public byte IsDeleted { get; set; }
         public DateTime CreationDate { get; set; }
 
         public virtual JobSeeker JobSeeker { get; set; }
