@@ -53,6 +53,7 @@ namespace Recruitment.EntitiesService.UnitOfWork
         public IPostTypeRepository PostTypeRepository { get => new PostTypeRepository(RecruitmentDbContext); }
         public IReferralRepository ReferralRepository { get => new ReferralRepository(RecruitmentDbContext); }
         public ITypeOfJobRepository TypeOfJobRepository { get => new TypeOfJobRepository(RecruitmentDbContext); }
+        public IAdminRepository AdminRepository { get => new AdminRepository(RecruitmentDbContext); }
         #endregion
         #region Constractor
         public UnitOfWork()

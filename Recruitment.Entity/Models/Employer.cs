@@ -19,8 +19,8 @@ namespace Recruitment.Entity.Models
         public string MobileNumber { get; set; }
         public string MobileNumber1 { get; set; }
         public string BusinessEmail { get; set; }
-        public string PasswordHash { get; set; }
-        public string PasswordSalt { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
         public byte? ReferralId { get; set; }
         public DateTime  CreationDate { get; set; }
         public byte IsDeleted { get; set; }

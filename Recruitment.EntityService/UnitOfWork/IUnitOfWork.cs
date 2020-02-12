@@ -46,6 +46,7 @@ namespace Recruitment.EntitiesService.UnitOfWork
         IPostTypeRepository PostTypeRepository { get; }
         IReferralRepository ReferralRepository { get; }
         ITypeOfJobRepository TypeOfJobRepository { get; }
+        IAdminRepository AdminRepository { get; }
      
         Task<int> Commit();
     }

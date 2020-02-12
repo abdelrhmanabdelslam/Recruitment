@@ -206,6 +206,11 @@ namespace Recruitment.ConfigureServicesContainer.AdminConfigureServices
             services.AddSingleton<ITypeOfJobBusinessMapping, TypeOfJobBusinessMapping>();
             services.AddSingleton<ITypeOfJobMapping, TypeOfJobMapping>();
             services.AddSingleton<ITypeOfJobAppService, TypeOfJobAppService>();
+
+
+            services.AddSingleton<IAdminBusinessMapping, AdminBusinessMapping>();
+            services.AddSingleton<IAdminMapping, AdminMapping>();
+            services.AddSingleton<IAdminAppService,AdminAppService>();
         }
     }
 }

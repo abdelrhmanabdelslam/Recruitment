@@ -32,6 +32,7 @@ namespace Recruitment.Entity.Models
         public virtual DbSet<CurrentEducationalLevel> CurrentEducationalLevel1 { get; set; }
         public virtual DbSet<CurrentJobSearchStatus> CurrentJobSearchStatus { get; set; }
         public virtual DbSet<Employer> Employer { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<EmployerJobRole> EmployerJobRole { get; set; }
         public virtual DbSet<Grade> Grade { get; set; }
         public virtual DbSet<Industry> Industry { get; set; }

@@ -27,7 +27,6 @@ namespace Recruitment.Mapping.Mapping
                         BusinessEmail = u.BusinessEmail,
                         MobileNumber = u.MobileNumber,
                         MobileNumber1 = u.MobileNumber1,
-                        Password = u.PasswordHash,
                         ReferralId = u.ReferralId,
                         Title = u.Title
                        
@@ -59,7 +58,6 @@ namespace Recruitment.Mapping.Mapping
                         BusinessEmail = EmployerAddDTO.BusinessEmail,
                         MobileNumber = EmployerAddDTO.MobileNumber,
                         MobileNumber1 = EmployerAddDTO.MobileNumber1,
-                        PasswordHash = EmployerAddDTO.Password,
                         ReferralId = EmployerAddDTO.ReferralId,
                         Title = EmployerAddDTO.Title,
                         CreationDate = DateTime.Now,
@@ -90,7 +88,6 @@ namespace Recruitment.Mapping.Mapping
                         Employer.BusinessEmail = EmployerUpdateDTO.BusinessEmail;
                         Employer.MobileNumber = EmployerUpdateDTO.MobileNumber;
                         Employer.MobileNumber1 = EmployerUpdateDTO.MobileNumber1;
-                        Employer.PasswordHash = EmployerUpdateDTO.Password;
                         Employer.ReferralId = EmployerUpdateDTO.ReferralId;
                         Employer.Title = EmployerUpdateDTO.Title;
                     
@@ -116,7 +113,6 @@ namespace Recruitment.Mapping.Mapping
                             BusinessEmail = Employer.BusinessEmail,
                             MobileNumber = Employer.MobileNumber,
                             MobileNumber1 = Employer.MobileNumber1,
-                            Password = Employer.PasswordHash,
                             ReferralId = Employer.ReferralId,
                             Title = Employer.Title,
                         };
