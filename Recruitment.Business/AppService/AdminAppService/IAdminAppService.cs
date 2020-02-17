@@ -1,4 +1,5 @@
 
+using IPMATS.Common.Auth;
 using Recruitment.DTOS.AdminDTOS;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Recruitment.Business.AppService
         Task<AdminReturnDTO> GetAdminById(int AdminId);
         Task<bool> UpdateAdmin(AdminUpdateDTO userUpdateDTO);
         Task<bool> DeleteAdmin(int AdminId);
+        Task<UserDTO> AdminLoginAsync(UserLoginDTO adminLoginDTO);
     }
 }
 

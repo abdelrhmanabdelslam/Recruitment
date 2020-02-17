@@ -9,7 +9,7 @@ using Recruitment.Common.Enums;
 using Recruitment.Common.Helper;
 using Recruitment.DTOS.AdminDTOS;
 using Microsoft.AspNetCore.Mvc;
-
+using IPMATS.Common.Auth;
 
 namespace AdminManagmentAPI.Controllers
 {
@@ -86,8 +86,41 @@ namespace AdminManagmentAPI.Controllers
                 }
                 return jsonResult;
             }
-            // POST api/<controller>
+            /// <summary>
+            /// Get User Action Activity Log
+            /// </summary>
+            /// <param name=></param>
+            /// <returns></returns>
             [HttpPost]
+            public async Task<ActionResult<CommonAPIResponse<UserDTO>>> AdminLoginAsync(UserLoginDTO adminLoginDTO)
+            {
+            #region Vars
+                UserDTO userDTO = null;
+                #endregion
+                #region Declare return type with initial value.
+                JsonResult jsonResult = GetDefaultJsonResult<object>();
+                #endregion
+                try
+                {
+
+                    if (adminLoginDTO != null)
+                        userDTO = await AdminAppService.AdminLoginAsync(adminLoginDTO);
+
+                    #region Validate userIdentityDTO for nullability before prepaing the response.
+                    if (userDTO != null)
+                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.Success, CurrentLanguagId), userDTO, HttpStatusCode.OK);
+                    else
+                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidCredentials, CurrentLanguagId), new object(), HttpStatusCode.BadRequest);
+                    #endregion
+                }
+                catch (Exception exception)
+                {
+
+                }
+                return jsonResult;
+            }
+        // POST api/<controller>
+        [HttpPost]
             public async Task<ActionResult<CommonAPIResponse<bool>>> AddAdmin(AdminAddDTO AdminAddDTO)
             {
 

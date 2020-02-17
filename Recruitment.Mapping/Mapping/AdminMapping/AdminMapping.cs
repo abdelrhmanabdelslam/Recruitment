@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Recruitment.Entity.Models;
+using IPMATS.Common.Auth;
 
 namespace Recruitment.Mapping.Mapping
 {
@@ -95,6 +96,26 @@ namespace Recruitment.Mapping.Mapping
                 catch (Exception exception)
                 { }
                 return AdminReturnDTO;
+            }
+        public UserDTO MappingAdminToUserDTO(Admin Admin)
+        {
+            #region Declare a return type with initial value.
+            UserDTO userDTO = null;
+                #endregion
+                try
+                {
+                    if (Admin != null)
+                    {
+                        userDTO = new UserDTO
+                        {
+                            UserId =  Admin.AdminId,
+                            UserName = Admin.FullName
+                        };
+                    }
+                }
+                catch (Exception exception)
+                { }
+                return userDTO;
             }
             public void Dispose()
             {

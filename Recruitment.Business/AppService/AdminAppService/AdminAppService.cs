@@ -1,3 +1,4 @@
+using IPMATS.Common.Auth;
 using Recruitment.Common.Base;
 using Recruitment.Common.Helper;
 using Recruitment.DataService.BusinessMapping;
@@ -57,6 +58,26 @@ namespace Recruitment.Business.AppService
             }
             catch (Exception exception){}
             return isCreated;
+        }
+
+        /// <summary>
+        /// Admin LoginAsync
+        /// </summary>
+        /// <returns>UserDTO<UserDTO></returns>
+        public async Task<UserDTO> AdminLoginAsync(UserLoginDTO adminLoginDTO)
+        {
+            #region Declare a return type with initial value.
+            UserDTO userDTO = null;
+            #endregion
+            try
+            {
+                if (adminLoginDTO != null)
+                {
+                    userDTO = await AdminBusinessMapping.AdminLoginAsync(adminLoginDTO);
+                }
+            }
+            catch (Exception exception){}
+            return userDTO;
         }
         /// <summary>
         /// Get  Admin By Id 

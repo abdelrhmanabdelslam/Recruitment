@@ -1,3 +1,4 @@
+using IPMATS.Common.Auth;
 using Microsoft.EntityFrameworkCore;
 using Recruitment.Common.Base;
 using Recruitment.Common.Enums;
@@ -50,7 +51,7 @@ namespace Recruitment.DataService.BusinessMapping
             }
             catch (Exception exception)
             {
-                 
+
             }
             return allAdmins;
         }
@@ -60,134 +61,195 @@ namespace Recruitment.DataService.BusinessMapping
         /// <param name=></param>
         /// <returns>bool</returns>
         public async Task<bool> AddAdmin(AdminAddDTO AdminAddDTO)
+        {
+            #region Declare a return type with initial value.
+            bool isAdminCreated = default(bool);
+            #endregion
+            try
             {
-                #region Declare a return type with initial value.
-                bool isAdminCreated = default(bool);
+                #region Vars
+                Admin Admin = null;
                 #endregion
-                try
+                Admin = AdminMapping.MappingAdminAddDTOToAdmin(AdminAddDTO);
+                if (Admin != null)
+                {
+                    await UnitOfWork.AdminRepository.Insert(Admin);
+                    isAdminCreated = await UnitOfWork.Commit() > default(int);
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
+            return isAdminCreated;
+        }
+        /// <summary>
+        /// Get user Action Activity Log By Id
+        /// </summary>
+        /// <returns>List<AdminReturnDTO></returns>
+        public async Task<AdminReturnDTO> GetAdminById(int AdminId)
+        {
+            #region Declare a return type with initial value.
+            AdminReturnDTO Admin = new AdminReturnDTO();
+            #endregion
+            try
+            {
+                Admin admin = await UnitOfWork.AdminRepository.GetById(AdminId);
+                if (admin != null)
+                {
+                    if (admin.IsDeleted != (byte)DeleteStatusEnum.Deleted)
+                        Admin = AdminMapping.MappingAdminToAdminReturnDTO(admin);
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
+            return Admin;
+        }
+        /// <summary>
+        /// Update User Action Activity Log 
+        /// </summary>
+        /// <param name=></param>
+        /// <returns>bool</returns>
+        public async Task<bool> UpdateAdmin(AdminUpdateDTO AdminUpdateDTO)
+        {
+            #region Declare a return type with initial value.
+            bool isAdminUpdated = default(bool);
+            #endregion
+            try
+            {
+                if (AdminUpdateDTO != null)
                 {
                     #region Vars
                     Admin Admin = null;
                     #endregion
-                    Admin = AdminMapping.MappingAdminAddDTOToAdmin(AdminAddDTO);
+                    #region Get Activity By Id
+                    Admin = await UnitOfWork.AdminRepository.GetById(AdminUpdateDTO.AdminId);
+                    #endregion
                     if (Admin != null)
                     {
-                        await UnitOfWork.AdminRepository.Insert(Admin);
-                        isAdminCreated = await UnitOfWork.Commit() > default(int);
+                        #region  Mapping
+                        Admin = AdminMapping.MappingAdminupdateDTOToAdmin(Admin, AdminUpdateDTO);
+                        #endregion
+                        if (Admin != null)
+                        {
+                            #region  Update Entity
+                            UnitOfWork.AdminRepository.Update(Admin);
+                            isAdminUpdated = await UnitOfWork.Commit() > default(int);
+                            #endregion
+                        }
                     }
                 }
-                catch (Exception exception)
-                {
-                     
-                }
-                return isAdminCreated;
             }
-            /// <summary>
-            /// Get user Action Activity Log By Id
-            /// </summary>
-            /// <returns>List<AdminReturnDTO></returns>
-            public async Task<AdminReturnDTO> GetAdminById(int AdminId)
+            catch (Exception exception)
             {
-                #region Declare a return type with initial value.
-                AdminReturnDTO Admin = new AdminReturnDTO();
-                #endregion
-                try
+
+            }
+            return isAdminUpdated;
+        }
+        /// <summary>
+        /// Delete User Action Activity Log
+        /// </summary>
+        /// <param name=></param>
+        /// <returns>bool</returns>
+        public async Task<bool> DeleteAdmin(int AdminId)
+        {
+            #region Declare a return type with initial value.
+            bool isAdminDeleted = default(bool);
+            #endregion
+            try
+            {
+                if (AdminId > default(int))
                 {
-                    Admin admin = await UnitOfWork.AdminRepository.GetById(AdminId);
+                    #region Vars
+                    Admin Admin = null;
+                    #endregion
+                    #region Get Admin by id
+                    Admin = await UnitOfWork.AdminRepository.GetById(AdminId);
+                    #endregion
+                    #region check if object is not null
+                    if (Admin != null)
+                    {
+                        Admin.IsDeleted = (byte)DeleteStatusEnum.Deleted;
+                        #region Apply the changes to the database
+                        UnitOfWork.AdminRepository.Update(Admin);
+                        isAdminDeleted = await UnitOfWork.Commit() > default(int);
+                        #endregion
+                    }
+                    #endregion
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
+            return isAdminDeleted;
+        }
+        /// <summary>
+        ///Admin Login Async
+        /// </summary>
+        /// <param name="AdminLoginDTO"></param>
+        /// <returns>bool</returns>
+        public async Task<UserDTO> AdminLoginAsync(UserLoginDTO adminLoginDTO)
+        {
+            #region Declare a return type with initial value.
+            UserDTO AdminReturn = new UserDTO();
+            #endregion
+            try
+            {
+                Admin admin = null;
+                if (adminLoginDTO != null)
+                {
+                    admin = await UnitOfWork.AdminRepository.GetWhere(x => x.FullName.Trim().ToLower().Equals(adminLoginDTO.Email.Trim().ToLower())
+                                                                       && x.IsDeleted == (byte)DeleteStatusEnum.NotDeleted).FirstOrDefaultAsync();
                     if (admin != null)
                     {
-                        if (admin.IsDeleted  != (byte)DeleteStatusEnum.Deleted)
-                            Admin = AdminMapping.MappingAdminToAdminReturnDTO(admin);
+                        if (VerifyPasswordHash(adminLoginDTO.Password, admin.PasswordHash, admin.PasswordSalt))
+                            AdminReturn = AdminMapping.MappingAdminToUserDTO(admin);
+                        AdminReturn.Token = TokenHandler.CreateToken(AdminReturn);
                     }
                 }
-                catch (Exception exception)
-                {
-                     
-                }
-                return Admin;
             }
-            /// <summary>
-            /// Update User Action Activity Log 
-            /// </summary>
-            /// <param name=></param>
-            /// <returns>bool</returns>
-            public async Task<bool> UpdateAdmin(AdminUpdateDTO AdminUpdateDTO)
+            catch (Exception exception)
             {
-                #region Declare a return type with initial value.
-                bool isAdminUpdated = default(bool);
-                #endregion
-                try
-                {
-                    if (AdminUpdateDTO != null)
-                    {
-                        #region Vars
-                        Admin Admin = null;
-                        #endregion
-                        #region Get Activity By Id
-                        Admin = await UnitOfWork.AdminRepository.GetById(AdminUpdateDTO.AdminId);
-                        #endregion
-                        if (Admin != null)
-                        {
-                            #region  Mapping
-                            Admin = AdminMapping.MappingAdminupdateDTOToAdmin(Admin ,AdminUpdateDTO);
-                            #endregion
-                            if (Admin != null)
-                            {
-                                #region  Update Entity
-                                UnitOfWork.AdminRepository.Update(Admin);
-                                isAdminUpdated = await UnitOfWork.Commit() > default(int);
-                                #endregion
-                            }
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                     
-                }
-                return isAdminUpdated;
+               // Logger.Instance.LogException(exception, LogLevel.Medium);
             }
-            /// <summary>
-            /// Delete User Action Activity Log
-            /// </summary>
-            /// <param name=></param>
-            /// <returns>bool</returns>
-            public async Task<bool> DeleteAdmin(int AdminId)
-            {
-                #region Declare a return type with initial value.
-                bool isAdminDeleted = default(bool);
-                #endregion
-                try
-                {
-                    if (AdminId > default(int))
-                    {
-                        #region Vars
-                        Admin Admin = null;
-                        #endregion
-                        #region Get Admin by id
-                        Admin = await UnitOfWork.AdminRepository.GetById(AdminId);
-                        #endregion
-                        #region check if object is not null
-                        if (Admin != null)
-                        {
-                            Admin.IsDeleted = (byte)DeleteStatusEnum.Deleted;
-                            #region Apply the changes to the database
-                            UnitOfWork.AdminRepository.Update(Admin);
-                            isAdminDeleted = await UnitOfWork.Commit() > default(int);
-                            #endregion
-                        }
-                        #endregion
-                    }
-                }
-                catch (Exception exception)
-                {
-                     
-                }
-                return isAdminDeleted;
-            }
-#endregion
+            return AdminReturn;
         }
+        /// <summary>
+        ///User Verify PasswordHash
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns>bool</returns>
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            bool IsVerifyed = default(bool);
+            try
+            {
+                //TODO:@AbdelRahman
+                //Avoid Multiple Return
+                using (var hmac = new System.Security.Cryptography.HMACMD5(passwordSalt))
+                {
+                    var CoumputedHash = hmac.ComputeHash(System.Text.Encoding.ASCII.GetBytes(password));
+                    IsVerifyed = true;
+                    for (int i = 0; i < CoumputedHash.Length; i++)
+                    {
+                        if (CoumputedHash[i] != passwordHash[i])
+                            IsVerifyed = false;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                //Logger.Instance.LogException(exception, LogLevel.Medium);
+                IsVerifyed = false;
+            }
+            return IsVerifyed;
+        }
+        #endregion
     }
+}
 
 
 
