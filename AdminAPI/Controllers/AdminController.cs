@@ -10,10 +10,14 @@ using Recruitment.Common.Helper;
 using Recruitment.DTOS.AdminDTOS;
 using Microsoft.AspNetCore.Mvc;
 using IPMATS.Common.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdminManagmentAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
+
+    [ApiController]
+
     public class AdminController : CommonBaseAPIController
         {
 
@@ -86,39 +90,88 @@ namespace AdminManagmentAPI.Controllers
                 }
                 return jsonResult;
             }
-            /// <summary>
-            /// Get User Action Activity Log
-            /// </summary>
-            /// <param name=></param>
-            /// <returns></returns>
-            [HttpPost]
-            public async Task<ActionResult<CommonAPIResponse<UserDTO>>> AdminLoginAsync(UserLoginDTO adminLoginDTO)
-            {
+        /// <summary>
+        /// Get User Action Activity Log
+        /// </summary>
+        /// <param name=></param>
+        /// <returns></returns>
+   [HttpPost]
+        [AllowAnonymous]
+        public async Task<UserDTO> LoginUser(UserLoginDTO userLoginDTO)
+        {
             #region Vars
-                UserDTO userDTO = null;
-                #endregion
-                #region Declare return type with initial value.
-                JsonResult jsonResult = GetDefaultJsonResult<object>();
-                #endregion
-                try
+            #region Declare return type with initial value.
+            JsonResult jsonResult = GetDefaultJsonResult<UserDTO>();
+            #endregion
+            #endregion
+            #region Vars
+            UserDTO userReturnDTO = new UserDTO();
+            #endregion
+
+            try
+            {
+                #region Validate Parrameters
+                if (ModelState.IsValid)
                 {
-
-                    if (adminLoginDTO != null)
-                        userDTO = await AdminAppService.AdminLoginAsync(adminLoginDTO);
-
-                    #region Validate userIdentityDTO for nullability before prepaing the response.
-                    if (userDTO != null)
-                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.Success, CurrentLanguagId), userDTO, HttpStatusCode.OK);
-                    else
-                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidCredentials, CurrentLanguagId), new object(), HttpStatusCode.BadRequest);
+                   
+                    #region login user with userLoginDTO
+                    userReturnDTO = await AdminAppService.AdminLoginAsync(userLoginDTO);
                     #endregion
-                }
-                catch (Exception exception)
-                {
+                    #region Validate userLoginDTO for nullability before prepaing the response.
+                    if (userReturnDTO != null)
+                    {
+                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.Success, CurrentLanguagId), userReturnDTO, HttpStatusCode.OK);
+                    }
+                    else
+                    {
+                        jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidCredentials, CurrentLanguagId), new object(), HttpStatusCode.BadRequest);
+                    }
+                    #endregion
 
                 }
-                return jsonResult;
+                else
+                {
+                    jsonResult = GetInvalidParametersJsonResult<object>(ModelState.Keys);
+                }
+                #endregion
             }
+            catch (Exception exception)
+            {
+                //Logger.Instance.LogException(exception, CurrentUser.UserId.ToString(), MethodBase.GetCurrentMethod(), DateTime.Now.ToShortTimeString(), LogLevel.Medium);
+            }
+
+            return userReturnDTO;
+        }
+
+        //[HttpPost]
+        //    [AllowAnonymous]
+        //public async Task<ActionResult<CommonAPIResponse<object>>> AdminLoginAsync([FromBody]UserLoginDTO adminLoginDTO)
+        //    {
+        //    #region Vars
+        //        UserDTO userDTO = null;
+        //        #endregion
+        //        #region Declare return type with initial value.
+        //        JsonResult jsonResult = GetDefaultJsonResult<UserDTO>();
+        //        #endregion
+        //        try
+        //        {
+
+        //            if (adminLoginDTO != null)
+        //                userDTO = await AdminAppService.AdminLoginAsync(adminLoginDTO);
+
+        //            #region Validate userIdentityDTO for nullability before prepaing the response.
+        //            if (userDTO != null)
+        //                jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.Success, CurrentLanguagId), userDTO, HttpStatusCode.OK);
+        //            else
+        //                jsonResult = JsonResultResponse(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidCredentials, CurrentLanguagId), new object(), HttpStatusCode.BadRequest);
+        //            #endregion
+        //        }
+        //        catch (Exception exception)
+        //        {
+
+        //        }
+        //        return jsonResult;
+        //    }
         // POST api/<controller>
         [HttpPost]
             public async Task<ActionResult<CommonAPIResponse<bool>>> AddAdmin(AdminAddDTO AdminAddDTO)

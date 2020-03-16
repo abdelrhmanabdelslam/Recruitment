@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Recruitment.DTOS.EmployerDTOS;
 
 namespace Recruitment.DataService.BusinessMapping
 {
@@ -56,33 +57,103 @@ namespace Recruitment.DataService.BusinessMapping
             return allAdmins;
         }
         /// <summary>
-        /// Create User Action Activity Log
+        /// Create User
         /// </summary>
-        /// <param name=></param>
+        /// <param name="createUserInputDTO"></param>
         /// <returns>bool</returns>
-        public async Task<bool> AddAdmin(AdminAddDTO AdminAddDTO)
+        public async Task<bool> AddAdmin(AdminAddDTO adminAddDTO)
         {
             #region Declare a return type with initial value.
-            bool isAdminCreated = default(bool);
+            bool isUserCreated = default(bool);
             #endregion
             try
             {
                 #region Vars
-                Admin Admin = null;
+                UserPasswordDTO userPasswordDTO = null;
+                Admin admin= null;
                 #endregion
-                Admin = AdminMapping.MappingAdminAddDTOToAdmin(AdminAddDTO);
-                if (Admin != null)
+                #region Check user email not exsist
+                if (!await IsEmailExist(adminAddDTO.Email))
                 {
-                    await UnitOfWork.AdminRepository.Insert(Admin);
-                    isAdminCreated = await UnitOfWork.Commit() > default(int);
+                    #region Create Hash Passowrd using password string
+                    userPasswordDTO = CreatePasswordHash(adminAddDTO.Password);
+                    #endregion
+                    #region Check if user password DTO not equal null
+                    if (userPasswordDTO != null)
+                    {
+                        #region Mapp user Add DTO and User Password DTO to User entity model
+                        admin = AdminMapping.MappingAdminAddDTOToAdmin(adminAddDTO, userPasswordDTO);
+                        #endregion
+                        #region Check if user not equal null
+                        if (admin != null)
+                        {
+                            #region insert user enity model to user repository
+                            if (await UnitOfWork.AdminRepository.Insert(admin))
+                            {
+                                isUserCreated = await UnitOfWork.Commit() > default(int);
+                            }
+                            #endregion
+                        }
+                        #endregion 
+                    }
+                    #endregion
+                }
+                #endregion
+            }
+            catch (Exception exception)
+            {
+                //Logger.Instance.LogException(exception, LogLevel.Medium);
+            }
+            return isUserCreated;
+        }
+        /// <summary>
+        ///CheckIfEmailExist
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>bool</returns>
+        public async Task<bool> IsEmailExist(string email)
+        {
+            #region Declare a return type with initial value.
+            bool isUserExist = default(bool);
+            #endregion
+            try
+            {
+                isUserExist = await UnitOfWork.AdminRepository.GetWhere(x => x.Email.Trim().ToLower().Equals(email.Trim().ToLower())).AnyAsync();
+            }
+            catch (Exception exception)
+            {
+                //Logger.Instance.LogException(exception, LogLevel.Medium);
+            }
+            return isUserExist;
+        }
+        /// <summary>
+        ///User Create PasswordHash
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns>bool</returns>
+        private UserPasswordDTO CreatePasswordHash(string password)
+        {
+            #region Declare a return type with initial value.
+            UserPasswordDTO userPasswordDTO = null;
+            #endregion
+            try
+            {
+                using (var hmac = new System.Security.Cryptography.HMACMD5())
+                {
+                    userPasswordDTO = new UserPasswordDTO()
+                    {
+                        PasswordSalt = hmac.Key,
+                        PasswordHash = hmac.ComputeHash(System.Text.Encoding.ASCII.GetBytes(password))
+                    };
                 }
             }
             catch (Exception exception)
             {
-
+               // Logger.Instance.LogException(exception, LogLevel.Medium);
             }
-            return isAdminCreated;
+            return userPasswordDTO;
         }
+     
         /// <summary>
         /// Get user Action Activity Log By Id
         /// </summary>
@@ -107,6 +178,7 @@ namespace Recruitment.DataService.BusinessMapping
             }
             return Admin;
         }
+        
         /// <summary>
         /// Update User Action Activity Log 
         /// </summary>
@@ -201,13 +273,14 @@ namespace Recruitment.DataService.BusinessMapping
                 Admin admin = null;
                 if (adminLoginDTO != null)
                 {
-                    admin = await UnitOfWork.AdminRepository.GetWhere(x => x.FullName.Trim().ToLower().Equals(adminLoginDTO.Email.Trim().ToLower())
+                    admin = await UnitOfWork.AdminRepository.GetWhere(x => x.Email.Trim().ToLower().Equals(adminLoginDTO.Email.Trim().ToLower())
                                                                        && x.IsDeleted == (byte)DeleteStatusEnum.NotDeleted).FirstOrDefaultAsync();
                     if (admin != null)
                     {
-                        if (VerifyPasswordHash(adminLoginDTO.Password, admin.PasswordHash, admin.PasswordSalt))
+                        if (!VerifyPasswordHash(adminLoginDTO.Password, admin.PasswordHash, admin.PasswordSalt))
                             AdminReturn = AdminMapping.MappingAdminToUserDTO(admin);
-                        AdminReturn.Token = TokenHandler.CreateToken(AdminReturn);
+                     
+                        AdminReturn.Token = TokenHandler.CreateToken(AdminReturn).Token;
                     }
                 }
             }

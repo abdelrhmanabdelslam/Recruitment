@@ -87,43 +87,65 @@ namespace Recruitment.Common.Enums
     }
     public enum APIResponseMessage
     {
-        ////[EnumMessage("Internal server error")]
         InternalServerError = -100,
-        ////[EnumMessage("Success")]
         Success = 0,
-        ////[EnumMessage("Error")]
         Error = 1,
-        //[EnumMessage("UnAuthorized")]
         UnAuthorized = -1,
-        //[EnumMessage("Email or password is incorrect.")]
         InvalidCredentials = -2,
-        //[EnumMessage("Verification code may be expired or incorrect.")]
         InvalidVCodeProcess = -3,
-        //[EnumMessage("Password doesn't match the pattern.")]
         InvalidPasswordFormat = -4,
-        //[EnumMessage("Phone doesn't match the pattern.")]
-        InvalidPhoneFormat = -4,
-        //[EnumMessage("Invalid Parameters.")]
-        InvalidParameters = -5,
-        //[EnumMessage("Invalid data for {0}.")]
-        InvalidData = -6,
-        //[EnumMessage("Email already exists.")]
-        EmailAlreadyExists = -7,
-        //[EnumMessage("Empty data.")]
-        EmptyData = -8,
-        //[EnumMessage("Check your mail for veification.")]
-        EmailVerificationMessage = -9,
-        //[EnumMessage("Email Verified successfully.")]
-        EmailVerificationSuccessMessage = -10,
-        //[EnumMessage("Email does not exist.")]
-        EmailNotExist = -11,
-        //[EnumMessage("Address is linked To Request")]
-        AddressIsLinkedToRequest = -12,
-        //[EnumMessage("Forget passwordSuccessMessage")]
-        ForgetPasswordSuccessMessage = -13,
-        //[EnumMessage("Invalid Notfication Token Id")]
-        InvalidNotficationTokenId = -14
-
+        InvalidPhoneFormat = -5,
+        InvalidParameters = -6,
+        InvalidData = -7,
+        EmailAlreadyExists = -8,
+        EmptyData = -9,
+        EmailVerificationMessage = -10,
+        EmailVerificationSuccessMessage = -11,
+        EmailNotExist = -12,
+        AddressIsLinkedToRequest = -13,
+        ForgetPasswordSuccessMessage = -14,
+        InvalidNotficationTokenId = -15,
+        ReferenceAccountIDNotExsit = -16,
+        SenderAccountNotExsit = -17,
+        ReceiverAccountNotExsit = -18,
+        InvalidCounteryId = -19,
+        InvalidCurrencyId = -20,
+        InvalidGovernorateId = -21,
+        InvalidDestinationPostOfficeId = -22,
+        InvalidOriginPostOfficeId = -23,
+        InvalidBarCodeId = -24,
+        InvalidShippingTypeId = -25,
+        InvalidChannelTypeId = -26,
+        InvalidDeliveryTypeId = -27,
+        InvalidPaymentMethodId = -28,
+        InvalidBuildingTypeId = -29,
+        AppartmentNoIsEmpty = -30,
+        FloorIsEmpty = -31,
+        ReferenceRequestIdAlreadyExist = -32,
+        ShiftTypeRelatedToDistributer = -33,
+        CantDeleteUserRelatedToDistributer = -35,
+        CantDeletePostofficeRelatedToShelf = -36,
+        weightRangeIsRelatedToFixedServicePrice = -38,
+        LookUpIsRelatedToLookUpContents = -39,
+        CantDeleteDDDRelatedToZone = -40,
+        ThisUserIsRelatedToANotherOffice = -41,
+        InValidImageSize = -42,
+        InValidImageExtension = -43,
+        ForgetPassEmailAlreadySent = -44,
+        CantDeletePostofficeRelatedToUser = -45,
+        CantDeletePackageSizeRelatedToPackageServicePrice = -46,
+        CantDeletePackageServicePriceRelatedToRequestItem = -47,
+        OfficeCodeIsExist = -48,
+        PostOfficeNameIsExist = -49,
+        ZoneRelatedToFixedServicePrice = -50,
+        CantDeleteFixedServicePriceRelatedToRequestItem = -51,
+        CantAddPostOfficeBecauseThereIsExchangeCenterInTheSameGovernorate = -52,
+        CantUpdatePostOfficeBecauseThereIsExchangeCenterInTheSameGovernorate = -53,
+        CantChangeNewPasswordToBeSameAsOldOne = -54,
+        CantAddSeconadryPostOfficeTheSameAsUserPostOffice = -55,
+        DistributerExist = -56,
+        CantEditSeconadryPostOfficeTheSameAsUserPostOffice = -57,
+        CantDeleteStoreRelatedToShelf = -58
     }
     public enum RequestType
     {

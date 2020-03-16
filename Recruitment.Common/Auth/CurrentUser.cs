@@ -4,8 +4,15 @@ using System.Text;
 
 namespace IPMATS.Common.Auth
 {
-   public static class CurrentUser
+
+    public class CurrentUser : ICurrentUser
     {
-        public static int UserId { get; set; }
+        public int UserId { get; set; }
+       public  string Email { get; set; }
+    }
+    public interface ICurrentUser
+    {
+        int UserId { get; set; }
+        string Email { get; set; }
     }
 }

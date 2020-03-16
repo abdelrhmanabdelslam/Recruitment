@@ -1,11 +1,12 @@
-﻿
+﻿using IPMATS.Common.Helper;
+using Microsoft.AspNetCore.Mvc;
 using Recruitment.Common.Enums;
 using Recruitment.Common.Helper;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Reflection;
 using static Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary;
-//using static UUL.Logger.UUL.Core.UUL.Common.Enums.Enums;
+using static UUL.Logger.UUL.Core.UUL.Common.Enums.Enums;
 
 namespace Recruitment.Common.Base
 {
@@ -13,10 +14,36 @@ namespace Recruitment.Common.Base
     {
         #region Properties
         public string CurrentLanguagId => ConfigHelper.DefaultLocalization;
+        public int CurrentUserId { get; set; }
+
         #endregion
         #region Methods
+        ///// <summary>
+        ///// Initialize response json object with default value.
+        ///// </summary>
+        ///// <returns>JsonResult</returns>
+        //public JsonResult GetDefaultJsonResult<T>()
+        //{
+        //    #region Declare a return type with initial value.
+        //    JsonResult jsonResult = null;
+        //    #endregion
+        //    try
+        //    {
+        //        jsonResult = new JsonResult(new CommonAPIResponse<T>()
+        //        {
+        //            Message = CommonHelper.GetResponseMessage(APIResponseMessage.InternalServerError, CurrentLanguagId),
+        //            InnerData = (T)Activator.CreateInstance(typeof(T))
+        //        });
+        //        jsonResult.StatusCode = (int)HttpStatusCode.InternalServerError;
+        //    }
+        //    catch (System.Exception exception)
+        //    {
+        //        Logger.Instance.LogException(exception, LogLevel.Medium);
+        //    }
+        //    return jsonResult;
+        //}
         /// <summary>
-        /// Initialize response json object with default value.
+        /// Initialize response json object with default value and code
         /// </summary>
         /// <returns>JsonResult</returns>
         public JsonResult GetDefaultJsonResult<T>()
@@ -26,25 +53,49 @@ namespace Recruitment.Common.Base
             #endregion
             try
             {
-                jsonResult = new JsonResult(new CommonAPIResponse<object>()
+                jsonResult = new JsonResult(new CommonAPIResponse<T>()
                 {
                     Message = CommonHelper.GetResponseMessage(APIResponseMessage.InternalServerError, CurrentLanguagId),
-                    InnerData = new object()
+                    InnerData = (T)Activator.CreateInstance(typeof(T)),
+                    APIResponseCode = APIResponseMessage.InternalServerError,
                 });
                 jsonResult.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
             catch (System.Exception exception)
             {
-                 
+                Logger.Instance.LogException(exception, LogLevel.Medium);
             }
             return jsonResult;
         }
-        /// <summary>
-        /// Get invalid data for given model in json result.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="modelKeys"></param>
-        /// <returns>JsonResult</returns>
+
+        ///// <summary>
+        ///// Get invalid data for given model in json result.
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="modelKeys"></param>
+        ///// <returns>JsonResult</returns>
+        //public JsonResult GetInvalidParametersJsonResult<T>(KeyEnumerable modelKeys = default(KeyEnumerable))
+        //{
+        //    #region Declare a return type with initial value.
+        //    JsonResult jsonResult = null;
+        //    #endregion
+        //    try
+        //    {
+        //        if (!modelKeys.Equals(default(KeyEnumerable)))
+        //        {
+        //            jsonResult = JsonResultResponse($"{string.Format(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidData, CurrentLanguagId), $"[{string.Join(", ", modelKeys)}]")}", Activator.CreateInstance<T>(), HttpStatusCode.BadRequest);
+        //        }
+        //        else
+        //        {
+        //            jsonResult = JsonResultResponse($"{string.Format(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidParameters, CurrentLanguagId), string.Empty)}", Activator.CreateInstance<T>(), HttpStatusCode.BadRequest);
+        //        }
+        //    }
+        //    catch (System.Exception exception)
+        //    {
+        //        Logger.Instance.LogException(exception, CurrentUserId.ToString(), MethodBase.GetCurrentMethod(), DateTime.Now.ToShortTimeString(), LogLevel.Medium);
+        //    }
+        //    return jsonResult;
+        //}
         public JsonResult GetInvalidParametersJsonResult<T>(KeyEnumerable modelKeys = default(KeyEnumerable))
         {
             #region Declare a return type with initial value.
@@ -58,12 +109,12 @@ namespace Recruitment.Common.Base
                 }
                 else
                 {
-                    jsonResult = JsonResultResponse($"{string.Format(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidParameters, CurrentLanguagId), string.Empty)}", Activator.CreateInstance<T>(), HttpStatusCode.BadRequest);
+                    jsonResult = JsonResultResponse($"{string.Format(CommonHelper.GetResponseMessage(APIResponseMessage.InvalidParameters, CurrentLanguagId), string.Empty)}", Activator.CreateInstance<T>(), HttpStatusCode.OK, APIResponseMessage.InternalServerError);
                 }
             }
             catch (System.Exception exception)
             {
-                 
+                Logger.Instance.LogException(exception, CurrentUserId.ToString(), MethodBase.GetCurrentMethod(), DateTime.Now.ToShortTimeString(), LogLevel.Medium);
             }
             return jsonResult;
         }
@@ -87,7 +138,7 @@ namespace Recruitment.Common.Base
             }
             catch (System.Exception exception)
             {
-                 
+                Logger.Instance.LogException(exception, CurrentUserId.ToString(), MethodBase.GetCurrentMethod(), DateTime.Now.ToShortTimeString(), LogLevel.Medium);
             }
             return jsonResult;
         }
@@ -95,44 +146,24 @@ namespace Recruitment.Common.Base
         /// Prepare Response json object.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="commonBusinessDTO">Response</param>
+        /// <param name="message">Response message</param>
+        /// <param name="innerData">Response data</param>
+        /// <param name="httpStatusCode">Response StatusCode</param>
+        /// /// <param name="aPIResponseMessage">APIResponse Code</param>
         /// <returns>JsonResult</returns>
-        public JsonResult JsonResultResponse<T>(CommonBusinessDTO<T> commonBusinessDTO)
+        public JsonResult JsonResultResponse<T>(string message, T innerData, HttpStatusCode httpStatusCode, APIResponseMessage aPIResponseMessage)
         {
             #region Declare a return type with initial value.
             JsonResult jsonResult = null;
             #endregion
             try
             {
-                jsonResult = new JsonResult(new CommonAPIResponse<T>() { Message = CommonHelper.GetResponseMessage(commonBusinessDTO.Message, CurrentLanguagId), InnerData = commonBusinessDTO.InnerData });
-                jsonResult.StatusCode = (int)commonBusinessDTO.HttpStatusCode;
-            }
-            catch (System.Exception exception)
-            {
-                 
-            }
-            return jsonResult;
-        }
-        /// <summary>
-        /// Getting the services response.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="input"></param>
-        /// <param name="httpStatusCode"></param>
-        /// <returns>JsonResult</returns>
-        public JsonResult GetReponse<T>(T input, HttpStatusCode httpStatusCode)
-        {
-            #region Declare a return type with initial value.
-            JsonResult jsonResult = new JsonResult("");
-            #endregion
-            try
-            {
-                jsonResult.Value = input;
+                jsonResult = new JsonResult(new CommonAPIResponse<T>() { Message = message, InnerData = innerData, APIResponseCode = aPIResponseMessage });
                 jsonResult.StatusCode = (int)httpStatusCode;
             }
             catch (System.Exception exception)
             {
-                 
+                Logger.Instance.LogException(exception, CurrentUserId.ToString(), MethodBase.GetCurrentMethod(), DateTime.Now.ToShortTimeString(), LogLevel.Medium);
             }
             return jsonResult;
         }

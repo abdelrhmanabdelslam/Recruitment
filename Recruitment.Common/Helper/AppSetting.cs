@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Recruitment.Common.Helper
 {
-   public  class AppSetting
+    public class AppSetting
     {
-        public List<string> TokenSecurityKey { get; set; }
-        public List<string> TokenExpireInHours { get; set; }
-        public List<string> RequestTimeoutInMiliseconds { get; set; }
-        public List<string> TDESKey { get; set; }
+        public string TokenSecurityKey { get; set; }
+        public string TokenExpireInMinutes { get; set; }
+        public string TDESKey { get; set; }
+        public List<string> TokenSecurityKeyList { get { return TokenSecurityKey.Split(",").ToList(); } set { } }
+        public List<string> TokenExpireInMinutesList { get { return TokenExpireInMinutes.Split(",").ToList(); } set { } }
+        public List<string> TDESKeyList { get { return TDESKey.Split(",").ToList(); } set { } }
     }
 }

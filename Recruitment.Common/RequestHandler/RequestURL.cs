@@ -1,6 +1,7 @@
-﻿using Recruitment.Common.Enums;
-using Recruitment.Common.Helper;
+﻿using IPMATS.Common.Helper;
 using Newtonsoft.Json;
+using Recruitment.Common.Enums;
+using Recruitment.Common.Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,8 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-
-
+using static UUL.Logger.UUL.Core.UUL.Common.Enums.Enums;
 namespace Recruitment.Common.RequestHandler
 {
     public static class RequestURL
@@ -22,7 +22,7 @@ namespace Recruitment.Common.RequestHandler
         /// <param name="requestType">Target url.</param>
         /// <param name="obj">posted object.</param>
         /// <returns>HTTPResponseJsonDTO<T></returns>
-        public static HTTPResponseJsonDTO<T> HTTPRequest<T>(string url, RequestType requestType , object obj = null)
+        public static HTTPResponseJsonDTO<T> HTTPRequest<T>(string url, RequestType requestType, object obj = null)
         {
             #region Declare return type with initial value
             HTTPResponseJsonDTO<T> response = null;
@@ -90,24 +90,29 @@ namespace Recruitment.Common.RequestHandler
                         }
                         else
                         {
-                             
+                            Logger.Instance.LogException(webex, LogLevel.Medium);
 
-                           
+
                         }
                     }
                     else
                     {
-                         
+                        Logger.Instance.LogException(webex, LogLevel.Medium);
                     }
                 }
             }
             catch (Exception exception)
             {
-                 
+                Logger.Instance.LogException(exception, LogLevel.Medium);
             }
 
             return response;
         }
- 
+
+
+
+
+
+
     }
 }

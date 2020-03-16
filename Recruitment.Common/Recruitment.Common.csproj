@@ -14,9 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="IPMATS.Common">
-      <HintPath>bin\Debug\netcoreapp2.2\IPMATS.Common.dll</HintPath>
-    </Reference>
     <Reference Include="LinqKit">
       <HintPath>bin\Debug\netcoreapp2.2\LinqKit.dll</HintPath>
     </Reference>

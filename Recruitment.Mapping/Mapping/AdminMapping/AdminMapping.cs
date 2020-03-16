@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Recruitment.Entity.Models;
 using IPMATS.Common.Auth;
+using Recruitment.DTOS.EmployerDTOS;
 
 namespace Recruitment.Mapping.Mapping
 {
@@ -38,8 +39,8 @@ namespace Recruitment.Mapping.Mapping
         /// </summary>
         /// <param name=></ param >
         /// <returns>Task<Admin></returns>
-        public Admin MappingAdminAddDTOToAdmin(AdminAddDTO AdminAddDTO)
-            {
+        public Admin MappingAdminAddDTOToAdmin(AdminAddDTO AdminAddDTO, UserPasswordDTO userPasswordDTO)
+        {
                 #region Declare a return type with initial value.
                 Admin Admin = null;
                 #endregion
@@ -48,6 +49,11 @@ namespace Recruitment.Mapping.Mapping
                     Admin = new Admin
                     {
                         FullName = AdminAddDTO.FullName,
+                        Address = AdminAddDTO.Address,
+                        Phone = AdminAddDTO.Phone,
+                        Email = AdminAddDTO.Email,
+                        PasswordHash = userPasswordDTO.PasswordHash,
+                        PasswordSalt = userPasswordDTO.PasswordSalt,
                         CreationDate = DateTime.Now,
                         IsDeleted = (byte)DeleteStatusEnum.NotDeleted
                     };
@@ -109,6 +115,7 @@ namespace Recruitment.Mapping.Mapping
                         userDTO = new UserDTO
                         {
                             UserId =  Admin.AdminId,
+                            Email = Admin.Email,
                             UserName = Admin.FullName
                         };
                     }
